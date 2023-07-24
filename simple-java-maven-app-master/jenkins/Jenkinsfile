@@ -1,6 +1,11 @@
 pipeline {
     agent {
         label 'jenkins-slave' // Specify the Jenkins agent where the pipeline will run
+        // Specify the Maven version to use
+        // You should have already configured this version in Jenkins under "Global Tool Configuration"
+        tools {
+            maven 'Maven-3.2.5'
+        }
     }
     options {
         // Use timestamps for console output
@@ -10,7 +15,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Run Maven build
-                sh '-B -DskipTests clean package'
+                sh 'mvn -B -DskipTests clean package'
             }
         }
         stage('Test') {
